@@ -72,6 +72,13 @@
       gap: 1rem;
     }
 
+    /* Sub-header di dalam grid */
+    .grid-col-span {
+      grid-column: 1 / -1;
+      margin-top: 0.5rem;
+      margin-bottom: -0.25rem;
+    }
+
     /* Header Profile */
     .header-profile {
       display: flex;
@@ -94,12 +101,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Syne Mono', monospace;
-      font-size: 18px;
-      font-weight: 700;
-      color: #ffffff;
       box-shadow: 0 8px 20px rgba(29, 158, 117, 0.25);
       flex-shrink: 0;
+      overflow: hidden; /* Memastikan foto tidak keluar dari border-radius */
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Membuat foto center crop proporsional */
     }
 
     .name-heading {
@@ -182,6 +192,14 @@
     .preview-photo { background: url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80') center/cover; }
     .preview-video { background: url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80') center/cover; }
     .preview-design { background: url('https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=800&q=80') center/cover; }
+     
+    /* Gambar Lapangan & Stadion Sepak Bola */
+    .preview-football { 
+      background-color: var(--primary-dark);
+      background: url('https://images.unsplash.com/photo-1431324155629-1a6edd1751f5?auto=format&fit=crop&w=800&q=80') center/cover; 
+    }
+    .preview-badminton { background: url('https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=800&q=80') center/cover; }
+    .preview-padel { background: url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=800&q=80') center/cover; }
 
     .preview-content {
       position: relative;
@@ -229,7 +247,7 @@
       font-weight: 400;
     }
 
-    /* Action Row (Footer) */
+    /* Action Row (Footer & CTA Group) */
     .action-row {
       display: flex;
       flex-direction: column;
@@ -241,6 +259,13 @@
       margin-top: 0.5rem;
     }
 
+    .cta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      width: 100%;
+    }
+
     .cta-link {
       display: inline-flex;
       align-items: center;
@@ -248,21 +273,37 @@
       gap: 10px;
       text-decoration: none;
       color: #ffffff;
-      background: var(--primary-dark);
       font-size: 14px;
       font-weight: 700;
-      padding: 14px 24px;
+      padding: 12px 20px;
       border-radius: 14px;
       transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(20, 106, 83, 0.15);
-      width: 100%;
       text-align: center;
+      width: 100%;
     }
 
-    .cta-link:hover {
+    /* Tombol Instagram */
+    .cta-ig {
+      background: var(--primary-dark);
+      box-shadow: 0 4px 12px rgba(20, 106, 83, 0.15);
+    }
+
+    .cta-ig:hover {
       background: var(--primary-mid);
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(29, 158, 117, 0.3);
+    }
+
+    /* Tombol LinkedIn */
+    .cta-linkedin {
+      background: #0a66c2;
+      box-shadow: 0 4px 12px rgba(10, 102, 194, 0.2);
+    }
+
+    .cta-linkedin:hover {
+      background: #004182;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(10, 102, 194, 0.35);
     }
 
     .cta-link svg {
@@ -271,6 +312,11 @@
       stroke: currentColor;
       fill: none;
       stroke-width: 2.5;
+    }
+
+    .cta-linkedin svg {
+      fill: currentColor;
+      stroke: none;
     }
 
     .footer-stamp {
@@ -291,16 +337,17 @@
 
     @media (min-width: 576px) {
       .dashboard-card { padding: 2.25rem; }
-      .avatar { width: 76px; height: 76px; font-size: 20px; }
+      .avatar { width: 76px; height: 76px; }
       .name-heading { font-size: 26px; }
-      .portfolio-grid { grid-template-columns: repeat(2, 1fr); } /* Grid mulai 2 kolom */
+      .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+      .cta-group { flex-direction: row; width: auto; }
       .cta-link { width: auto; }
       .action-row { flex-direction: row; }
     }
 
     @media (min-width: 992px) {
       .dashboard-card { padding: 2.75rem; }
-      
+       
       /* Split Layout Kiri & Kanan */
       .main-layout {
         grid-template-columns: 1fr 1.4fr;
@@ -330,20 +377,20 @@
 <body>
 
   <div class="dashboard-card">
-    
-    <!-- Wrapper Utama Layout -->
+     
     <div class="main-layout">
-      
-      <!-- Sisi Kiri: Informasi Personal -->
+       
       <div class="profile-section">
         <div class="header-profile">
           <div class="profile-info">
-            <div class="avatar">ACR</div>
+            <div class="avatar">
+              <img src="adlan.jpeg" alt="Adlan Chosyiyar Rochman">
+            </div>
             <div>
               <h1 class="name-heading">Adlan Chosyiyar<br>Rochman</h1>
               <div class="location-tag">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Bandung - Jakarta, Indonesia
+                Bandung, Indonesia
               </div>
             </div>
           </div>
@@ -351,16 +398,15 @@
 
         <span class="section-title">// Tentang Saya</span>
         <p class="bio-text">
-          Suka bikin hal-hal visual. Bekerja aktif dalam lanskap IT sebagai Business Analyst, Quality Assurance, dan Developer. Di luar jam kerja, saya tetap menghabiskan waktu di depan layar—menyalurkan hobi lewat kreasi desain grafis, fotografi, serta videografi sinematik.
+         Suka menciptakan hal-hal visual dan aktif bekerja di dunia IT sebagai Business Analyst, IT Quality Assurance, serta Developer. Di luar jam kerja, saya tetap banyak menghabiskan waktu di depan layar untuk menyalurkan hobi melalui desain grafis, fotografi, dan videografi sinematik. Selain dunia kreatif dan teknologi, saya juga menikmati berbagai aktivitas olahraga seperti bermain sepak bola, badminton, dan padel.
         </p>
       </div>
 
-      <!-- Sisi Kanan: List Grid Portofolio -->
       <div class="portfolio-section">
         <span class="section-title">// Bidang Portofolio</span>
-        
+         
         <div class="portfolio-grid">
-          
+           
           <a href="#" class="portfolio-preview preview-ba">
             <div class="preview-tag">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
@@ -370,7 +416,7 @@
               <p class="preview-subtitle">Menjembatani kebutuhan user dengan solusi sistem dan strategi bisnis.</p>
             </div>
           </a>
-          
+           
           <a href="#" class="portfolio-preview preview-qa">
             <div class="preview-tag">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
@@ -410,14 +456,48 @@
               <p class="preview-subtitle">Produksi video cerita pendek, sinematografi, dan editing kreatif.</p>
             </div>
           </a>
-          
+           
           <a href="#" class="portfolio-preview preview-design">
             <div class="preview-tag">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
             </div>
             <div class="preview-content">
-              <h3 class="preview-title">Grafik Desainer</h3>
-              <p class="preview-subtitle">Merancang flyer promosi dan aset visual kreatif berbasis Canva.</p>
+              <h3 class="preview-title">UI/UX & Grafik Desainer</h3>
+              <p class="preview-subtitle">Merancang antarmuka sistem (UI/UX) fungsional, wireframe, serta materi promosi kreatif berbasis Canva.</p>
+            </div>
+          </a>
+
+          <div class="grid-col-span">
+            <span class="section-title">// Hobby dalam Olahraga</span>
+          </div>
+
+          <a href="#" class="portfolio-preview preview-football">
+            <div class="preview-tag">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
+            <div class="preview-content">
+              <h3 class="preview-title">Sepak Bola</h3>
+              <p class="preview-subtitle">Aktif bermain sepak bola lapangan besar, futsal, hingga mini soccer.</p>
+            </div>
+          </a>
+
+          <a href="#" class="portfolio-preview preview-badminton">
+            <div class="preview-tag">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
+            <div class="preview-content">
+              <h3 class="preview-title">Badminton</h3>
+              <p class="preview-subtitle">Menyalurkan energi lewat tepukan raket dalam permainan bulu tangkis.</p>
+            </div>
+          </a>
+
+          <a href="#" class="portfolio-preview preview-padel">
+            <div class="preview-tag">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
+            <div class="preview-content">
+              <h3 class="preview-title">Padel</h3>
+              <p class="preview-subtitle">Eksplorasi ketangkasan dinamis di arena olahraga raket modern.</p>
             </div>
           </a>
 
@@ -426,12 +506,18 @@
 
     </div>
 
-    <!-- Bagian Bawah / Footer -->
     <div class="action-row">
-      <a class="cta-link" href="https://instagram.com/adlancr" target="_blank">
-        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        Lihat Portofolio (@adlancr)
-      </a>
+      <div class="cta-group">
+        <a class="cta-link cta-ig" href="https://instagram.com/adlancr" target="_blank">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          Instagram (@adlancr)
+        </a>
+         
+        <a class="cta-link cta-linkedin" href="https://www.linkedin.com/in/adlan-chosyiyar-rochman-70634714b/" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          LinkedIn
+        </a>
+      </div>
       <p class="footer-stamp">adlancr // 2026</p>
     </div>
 
