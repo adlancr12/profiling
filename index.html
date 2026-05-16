@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adlan Chosyiyar Rochman - Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary-dark: #146a53;
+      --primary-mid: #1d9e75;
+      --primary-light: #e1f5ee;
+      --accent-yellow: #fbb901;
+      --text-main: #111827;
+      --text-muted: #4b5563;
+      --bg-global: #f3f7f5;
+      --bg-card: #ffffff;
+      --border-color: #e5e7eb;
+    }
+
+    body {
+      font-family: 'Syne', sans-serif;
+      background: var(--bg-global);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    /* Container Dashboard Utama */
+    .dashboard-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 28px;
+      max-width: 1100px;
+      width: 100%;
+      padding: 1.75rem;
+      box-shadow: 0 25px 50px -12px rgba(20, 106, 83, 0.06);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* Layout Utama */
+    .main-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    /* Bagian Kiri: Profil & Tentang Saya */
+    .profile-section {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Bagian Kanan: Daftar Portofolio */
+    .portfolio-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    /* Header Profile */
+    .header-profile {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .avatar {
+      width: 68px;
+      height: 68px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--primary-mid), var(--primary-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne Mono', monospace;
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+      box-shadow: 0 8px 20px rgba(29, 158, 117, 0.25);
+      flex-shrink: 0;
+    }
+
+    .name-heading {
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+    }
+
+    .location-tag {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .location-tag svg {
+      color: var(--primary-mid);
+    }
+
+    /* Section Label */
+    .section-title {
+      font-family: 'Syne Mono', monospace;
+      font-size: 12px;
+      color: var(--primary-dark);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      display: block;
+      font-weight: 700;
+    }
+
+    .bio-text {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Card Item Portofolio */
+    .portfolio-preview {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 150px;
+      padding: 1.5rem;
+      border-radius: 20px;
+      color: #ffffff;
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.1);
+      text-decoration: none;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Efek Background & Hover */
+    .portfolio-preview::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(to bottom, rgba(20, 106, 83, 0.2) 0%, rgba(10, 53, 41, 0.95) 100%);
+      z-index: 1;
+      transition: opacity 0.4s ease;
+    }
+
+    .portfolio-preview:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(20, 106, 83, 0.18);
+    }
+
+    .portfolio-preview:hover::before {
+      background: linear-gradient(to bottom, rgba(20, 106, 83, 0.1) 0%, rgba(10, 53, 41, 0.98) 100%);
+    }
+
+    /* Tema Gambar Latar Belakang */
+    .preview-ba { background: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80') center/cover; }
+    .preview-qa { background: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80') center/cover; }
+    .preview-dev { background: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=800&q=80') center/cover; }
+    .preview-photo { background: url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80') center/cover; }
+    .preview-video { background: url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80') center/cover; }
+    .preview-design { background: url('https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=800&q=80') center/cover; }
+
+    .preview-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .preview-tag {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: transform 0.3s ease;
+    }
+
+    .portfolio-preview:hover .preview-tag {
+      transform: rotate(45deg) scale(1.05);
+      background: var(--accent-yellow);
+    }
+
+    .portfolio-preview:hover .preview-tag svg {
+      stroke: var(--text-main);
+    }
+
+    .preview-title {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .preview-subtitle {
+      font-size: 12px;
+      opacity: 0.85;
+      margin-top: 4px;
+      line-height: 1.4;
+      font-weight: 400;
+    }
+
+    /* Action Row (Footer) */
+    .action-row {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-color);
+      padding-top: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .cta-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #ffffff;
+      background: var(--primary-dark);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 14px 24px;
+      border-radius: 14px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(20, 106, 83, 0.15);
+      width: 100%;
+      text-align: center;
+    }
+
+    .cta-link:hover {
+      background: var(--primary-mid);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(29, 158, 117, 0.3);
+    }
+
+    .cta-link svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.5;
+    }
+
+    .footer-stamp {
+      font-size: 11px;
+      color: #9ca3af;
+      font-family: 'Syne Mono', monospace;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .dashboard-card { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+    /* ==========================================================================
+       MEDIA QUERIES (Responsivitas)
+       ========================================================================== */
+
+    @media (min-width: 576px) {
+      .dashboard-card { padding: 2.25rem; }
+      .avatar { width: 76px; height: 76px; font-size: 20px; }
+      .name-heading { font-size: 26px; }
+      .portfolio-grid { grid-template-columns: repeat(2, 1fr); } /* Grid mulai 2 kolom */
+      .cta-link { width: auto; }
+      .action-row { flex-direction: row; }
+    }
+
+    @media (min-width: 992px) {
+      .dashboard-card { padding: 2.75rem; }
+      
+      /* Split Layout Kiri & Kanan */
+      .main-layout {
+        grid-template-columns: 1fr 1.4fr;
+        gap: 3.5rem;
+      }
+
+      .profile-section {
+        position: sticky;
+        top: 2.5rem;
+        height: max-content;
+      }
+
+      .portfolio-section {
+        max-height: 540px;
+        overflow-y: auto;
+        padding-right: 12px;
+      }
+
+      /* Custom Scrollbar Area Portofolio */
+      .portfolio-section::-webkit-scrollbar { width: 6px; }
+      .portfolio-section::-webkit-scrollbar-track { background: transparent; }
+      .portfolio-section::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+      .portfolio-section::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard-card">
+    
+    <!-- Wrapper Utama Layout -->
+    <div class="main-layout">
+      
+      <!-- Sisi Kiri: Informasi Personal -->
+      <div class="profile-section">
+        <div class="header-profile">
+          <div class="profile-info">
+            <div class="avatar">ACR</div>
+            <div>
+              <h1 class="name-heading">Adlan Chosyiyar<br>Rochman</h1>
+              <div class="location-tag">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Bandung, Indonesia
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <span class="section-title">// Tentang Saya</span>
+        <p class="bio-text">
+          Suka bikin hal-hal visual. Bekerja aktif dalam lanskap IT sebagai Business Analyst, Quality Assurance, dan Developer. Di luar jam kerja, saya tetap menghabiskan waktu di depan layar—menyalurkan hobi lewat kreasi desain grafis, fotografi, serta videografi sinematik.
+        </p>
+      </div>
+
+      <!-- Sisi Kanan: List Grid Portofolio -->
+      <div class="portfolio-section">
+        <span class="section-title">// Bidang Portofolio</span>
+        
+        <div class="portfolio-grid">
+          
+          <a href="#" class="portfolio-preview preview-ba">
+            <div class="preview-tag">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
+            <div class="preview-content">
+              <h3 class="preview-title">IT Business Analyst</h3>
+              <p class="preview-subtitle">Menjembatani kebutuhan user dengan solusi sistem dan strategi bisnis.</p>
+            </div>
+          </a>
+          
+          <a href="#" class="portfolio-preview preview-qa">
+            <div class="preview-tag">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
+            <div class="preview-content">
+              <h3 class="preview-title">IT Quality Assurance</h3>
+              <p class="preview-subtitle">Memastikan keandalan fungsionalitas, logika, dan performa aplikasi.</p>
+            </div>
+          </a>
+
+          <a href="#" class="portfolio-preview preview-dev">
+            <div class="preview-tag">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
+            <div class="preview-content">
+              <h3 class="preview-title">IT Developer</h3>
+              <p class="preview-subtitle">Membangun arsitektur backend andal berbasis pemrograman PHP.</p>
+            </div>
+          </a>
+
+          <a href="#" class="portfolio-preview preview-photo">
+            <div class="preview-tag">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
+            <div class="preview-content">
+              <h3 class="preview-title">Fotografer</h3>
+              <p class="preview-subtitle">Menangkap momen esensial, eksplorasi cahaya, dan visual lanskap.</p>
+            </div>
+          </a>
+
+          <a href="#" class="portfolio-preview preview-video">
+            <div class="preview-tag">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
+            <div class="preview-content">
+              <h3 class="preview-title">Videografer</h3>
+              <p class="preview-subtitle">Produksi video cerita pendek, sinematografi, dan editing kreatif.</p>
+            </div>
+          </a>
+          
+          <a href="#" class="portfolio-preview preview-design">
+            <div class="preview-tag">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
+            <div class="preview-content">
+              <h3 class="preview-title">Grafik Desainer</h3>
+              <p class="preview-subtitle">Merancang flyer promosi dan aset visual kreatif berbasis Canva.</p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bagian Bawah / Footer -->
+    <div class="action-row">
+      <a class="cta-link" href="https://instagram.com/adlancr" target="_blank">
+        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        Lihat Portofolio (@adlancr)
+      </a>
+      <p class="footer-stamp">adlancr // 2026</p>
+    </div>
+
+  </div>
+
+</body>
+</html>
